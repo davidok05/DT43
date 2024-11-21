@@ -1,0 +1,21 @@
+import spacy
+
+nlp = spacy.load("xx_ent_wiki_sm")  # Latviešu valodas modeļa atbalsts nav pieejams tieši spaCy
+
+words = ["māja", "dzīvoklis", "jūra"]
+
+word_vectors = {word: nlp(word).vector for word in words}
+
+def compare_similarity(word1, word2):
+    vector1 = nlp(word1).vector
+    vector2 = nlp(word2).vector
+    similarity = vector1 @ vector2 / (vector1.norm() * vector2.norm())  # Kosinusu līdzība
+    return similarity
+
+similarity_1_2 = compare_similarity("māja", "dzīvoklis")
+similarity_1_3 = compare_similarity("māja", "jūra")
+similarity_2_3 = compare_similarity("dzīvoklis", "jūra")
+
+print(f"Līdzība starp 'māja' un 'dzīvoklis': {similarity_1_2:.4f}")
+print(f"Līdzība starp 'māja' un 'jūra': {similarity_1_3:.4f}")
+print(f"Līdzība starp 'dzīvoklis' un 'jūra': {similarity_2_3:.4f}")
