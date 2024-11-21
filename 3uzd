@@ -1,0 +1,19 @@
+import re
+
+def preprocess_text(text):
+    # Noņem pieturzīmes un pārveido par mazajiem burtiem
+    return set(re.sub(r'[^\w\s]', '', text).lower().split())
+
+text1 = "Rudens lapas ir dzeltenas un oranžas. Lapas klāj zemi un padara to krāsainu."
+text2 = "Krāsainas rudens lapas krīt zemē. Lapas ir oranžas un dzeltenas."
+
+words1 = preprocess_text(text1)
+words2 = preprocess_text(text2)
+
+common_words = words1.intersection(words2)
+
+total_words = len(words1.union(words2))
+similarity_percentage = (len(common_words) / total_words) * 100
+
+print("Kopīgie vārdi:", common_words)
+print(f"Sakritības līmenis: {similarity_percentage:.2f}%")
