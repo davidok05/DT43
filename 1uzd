@@ -1,23 +1,17 @@
-import nltk
 from collections import Counter
-from nltk.tokenize import word_tokenize
+import re
 
-# Lejupielādēt nepieciešamos resursus
-nltk.download('punkt')
+text = """
+Mākoņainā dienā kaķis sēdēja uz palodzes. Kaķis domāja, kāpēc debesis ir pelēkas. 
+Kaķis gribēja redzēt sauli, bet saule slēpās aiz mākoņiem.
+"""
 
-# Teksts
-text = "Mākoņainā dienā kaķis sēdēja uz palodzes. Kaķis domāja, kāpēc debesis ir pelēkas. Kaķis gribēja redzēt sauli, bet saule slēpās aiz mākoņiem."
+cleaned_text = re.sub(r'[^\w\s]', '', text).lower()
 
-# Teksta tokenizācija
-tokens = word_tokenize(text.lower())  # Pārveidot uz maziem burtiem un tokenizēt
+words = cleaned_text.split()
 
-# Vārdu biežuma skaitīšana
-word_freq = Counter(tokens)
+word_counts = Counter(words)
 
-# Izfiltrēt tikai vārdus (ignorēt pieturzīmes)
-filtered_word_freq = {word: freq for word, freq in word_freq.items() if word.isalpha()}
-
-# Rezultāta izdruka
-print("Vārdu biežums:")
-for word, freq in filtered_word_freq.items():
-    print(f"{word}: {freq}")
+print("Vārdu biežums tekstā:")
+for word, count in word_counts.items():
+    print(f"{word}: {count}")
