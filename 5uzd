@@ -1,0 +1,18 @@
+import re
+
+raw_text = "@John: Šis ir lielisks produkts!!! Vai ne? 👏👏👏 http://example.com"
+
+def clean_text(text):
+    text = re.sub(r"@\w+", "", text)
+    text = re.sub(r"http\S+|www\S+", "", text)
+    text = re.sub(r"[^\w\s.,!?]", "", text)
+    text = text.lower()
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
+cleaned_text = clean_text(raw_text)
+
+print("Oriģinālais teksts:")
+print(raw_text)
+print("\nTīrītais teksts:")
+print(cleaned_text)
