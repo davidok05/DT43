@@ -1,0 +1,20 @@
+from langdetect import detect, DetectorFactory
+from langdetect.lang_detect_exception import LangDetectException
+
+DetectorFactory.seed = 0
+
+texts = [
+    "Šodien ir saulaina diena.",
+    "Today is a sunny day.",
+    "Bonjour tout le monde.",
+    "Guten Tag!",
+    "Hola, ¿cómo estás?"
+]
+
+print("Teksta valodas noteikšanas rezultāti:")
+for i, text in enumerate(texts, 1):
+    try:
+        language = detect(text)
+        print(f"{i}. Teksts: \"{text}\" -> Valoda: {language}")
+    except LangDetectException:
+        print(f"{i}. Teksts: \"{text}\" -> Valodu nevar noteikt.")
