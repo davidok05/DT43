@@ -1,0 +1,25 @@
+from transformers import MarianMTModel, MarianTokenizer
+
+model_name = "Helsinki-NLP/opus-mt-lv-en"
+model = MarianMTModel.from_pretrained(model_name)
+tokenizer = MarianTokenizer.from_pretrained(model_name)
+
+sentences = [
+    "Labdien! Kā jums klājas?",
+    "Es šodien lasīju interesantu grāmatu."
+]
+
+def translate(texts):
+    # Sagatavo ievadi modelim
+    inputs = tokenizer(texts, return_tensors="pt", padding=True)
+    
+    translated = model.generate(**inputs)
+    
+    return [tokenizer.decode(t, skip_special_tokens=True) for t in translated]
+
+translated_sentences = translate(sentences)
+
+for original, translated in zip(sentences, translated_sentences):
+    print(f"Latviešu: {original}")
+    print(f"Angļu: {translated}")
+    print()
