@@ -1,0 +1,21 @@
+from gensim.summarization import summarize
+
+article = """
+Latvija ir valsts Baltijas reģionā. Tās galvaspilsēta ir Rīga, kas ir slavena ar savu vēsturisko centru un skaistajām ēkām. 
+Latvija robežojas ar Lietuvu, Igauniju un Krieviju, kā arī tai ir piekļuve Baltijas jūrai. 
+Tā ir viena no Eiropas Savienības dalībvalstīm.
+"""
+
+def summarize_text(text, ratio=0.5):
+    try:
+        summary = summarize(text, ratio=ratio)
+        return summary if summary.strip() else "Rezumēšanu nevar veikt, teksts ir pārāk īss."
+    except ValueError:
+        return "Rezumēšanu nevar veikt, teksts ir pārāk īss."
+
+summary = summarize_text(article)
+
+print("Oriģinālais raksts:")
+print(article)
+print("\nRezumētais raksts:")
+print(summary)
